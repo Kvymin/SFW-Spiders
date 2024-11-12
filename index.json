@@ -1,0 +1,48 @@
+{
+  "spider": "https://ghp.ci/https://raw.githubusercontent.com/CatVodSpider-GM/Spiders-Lib/main/jar/GM.jar",
+  "sites": [
+    {
+      "key": "yfsp",
+      "name": "爱壹帆",
+      "type": 3,
+      "searchable": 1,
+      "changeable": 0,
+      "style": {
+        "type": "rect",
+        "ratio": 0.75
+      },
+      "api": "csp_GM",
+      "ext": {
+        "userScript": "./userScripts/ysfp.user.js",
+        "debug": false,
+        "webViewSettings": {
+          "blockNetworkImage": true,
+          "blockList": [
+            "*.png*",
+            "*.mp3*",
+            "*.css*",
+            "https://*.googletagmanager.com/*",
+            "https://*.google-analytics.com/*"
+          ]
+        },
+        "spider": {
+          "homeContent": {
+            "loadUrl": "https://m.yfsp.tv/"
+          },
+          "categoryContent": {
+            "loadUrl": "https://m.yfsp.tv/list/${tid}?type=${index-0:-0}${index-1:-,0}${index-2:-,0}${index-3:-,0}${index-4:-,0}${index-5:-}"
+          },
+          "detailContent": {
+            "loadUrl": "https://m.yfsp.tv/play/${id}"
+          },
+          "playerContent": {
+            "loadUrl": "https://m.yfsp.tv/play/${id}"
+          },
+          "searchContent": {
+            "loadUrl": "https://m.yfsp.tv/search"
+          }
+        }
+      }
+    }
+  ]
+}

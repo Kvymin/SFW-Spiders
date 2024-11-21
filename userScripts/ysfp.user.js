@@ -131,9 +131,6 @@ console.log(JSON.stringify(GM_info));
             categoryContent: function (tid, pg, filter, extend) {
                 let result = {
                     list: [],
-                    limit: 21,
-                    total: 99999,
-                    page: pg,
                     pagecount: 1000
                 };
                 let cacheFilters = [];
@@ -226,20 +223,19 @@ console.log(JSON.stringify(GM_info));
                 console.log(hookResult);
                 let result = {
                     list: [],
-                    limit: 25,
-                    total: 25,
-                    page: pg,
                     pagecount: 1
                 };
-                hookResult.titlegetdata.data.list.forEach((media) => {
-                    result.list.push({
-                        vod_id: media.mediaKey,
-                        vod_name: media.title,
-                        vod_pic: media.coverImgUrl,
-                        vod_remarks: media.updateStatus,
-                        vod_year: media.regional
+                if (pg == 1) {
+                    hookResult.titlegetdata.data.list.forEach((media) => {
+                        result.list.push({
+                            vod_id: media.mediaKey,
+                            vod_name: media.title,
+                            vod_pic: media.coverImgUrl,
+                            vod_remarks: media.updateStatus,
+                            vod_year: media.regional
+                        })
                     })
-                })
+                }
                 return result;
             }
         };

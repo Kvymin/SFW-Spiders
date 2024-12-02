@@ -67,6 +67,11 @@
             "*.css*"
           ]
         },
+        "playUrlMatch": [
+          "https://dl-b.cloud.189.cn/corp/downloadFile.action?*",
+          "https://gaze.run/gaze_filey/pb/*.m3u8",
+          "https://*/obj/tos*"
+        ],
         "spider": {
           "homeContent": {
             "loadUrl": "https://gaze.run/filter"
@@ -75,20 +80,10 @@
             "loadUrl": "https://gaze.run/filter"
           },
           "detailContent": {
-            "loadUrl": "https://gaze.run/play/${id}",
-            "playUrlMatch": [
-              "https://dl-b.cloud.189.cn/corp/downloadFile.action?*",
-              "https://gaze.run/gaze_filey/pb/*.m3u8",
-              "https://*/obj/tos*"
-            ]
+            "loadUrl": "https://gaze.run/play/${id}"
           },
           "playerContent": {
-            "loadUrl": "https://gaze.run/play/${mcid}#${path}",
-            "playUrlMatch": [
-              "https://dl-b.cloud.189.cn/corp/downloadFile.action?*",
-              "https://gaze.run/gaze_filey/pb/*.m3u8",
-              "https://*/obj/tos*"
-            ]
+            "loadUrl": "https://gaze.run/play/${mcid}#${path}"
           },
           "searchContent": {
             "loadUrl": "https://gaze.run/filter"

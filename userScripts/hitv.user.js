@@ -4,7 +4,6 @@
 // @version      2024.11.12
 // @description  Hi视频 GMSpider
 // @author       Luomo
-// @match        https://www.hitv.ai/*
 // @match        https://www.upfuhn.com/*
 // @require      https://cdn.jsdelivr.net/gh/CatVodSpider-GM/Spiders-Lib@main/lib/browser-extension-url-match-1.2.0.min.js
 // @require      https://scriptcat.org/lib/637/1.4.3/ajaxHooker.js
@@ -183,16 +182,25 @@ console.log(JSON.stringify(GM_info));
                     pagecount: 1
                 };
                 const formatData = JSON.parse(document.getElementById("__NUXT_DATA__").innerHTML);
+                console.log(formatData);
                 formatData.forEach((data) => {
-                    if (typeof (data?.video_sites) === "number") {
-                        formatData[data.video_sites].forEach((video) => {
-                            formatData[video].video_site_id
+                    if (typeof (data?.first_video_series) === "number") {
+                        let firstVideo = formatData[data.first_video_series];
+                        result.list.push({
+                            vod_id: formatData[firstVideo.video_site_id],
+                            vod_name: formatData[firstVideo.video_name],
+                            vod_pic: formatData[firstVideo.video_vertical_url],
+                            vod_remarks: formatData[firstVideo.tag],
+                            vod_year: formatData[firstVideo.years]
+                        })
+                        formatData[data.video_sites].forEach((videoIndex) => {
+                            let video = formatData[videoIndex];
                             result.list.push({
-                                vod_id: formatData[formatData[video].video_site_id],
-                                vod_name: formatData[formatData[video].video_name],
-                                vod_pic: formatData[formatData[video].video_vertical_url],
-                                vod_remarks: formatData[formatData[video].tag],
-                                vod_year: formatData[formatData[video].years]
+                                vod_id: formatData[video.video_site_id],
+                                vod_name: formatData[video.video_name],
+                                vod_pic: formatData[video.video_vertical_url],
+                                vod_remarks: formatData[video.tag],
+                                vod_year: formatData[video.years]
                             })
                         })
                     }

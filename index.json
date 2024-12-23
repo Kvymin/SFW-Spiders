@@ -1,5 +1,5 @@
 {
-  "spider": "https://raw.githubusercontent.com/CatVodSpider-GM/Spiders-Lib/main/jar/GM.jar",
+  "spider": "./Spiders-Lib/GM.jar;md5;7f38c6778ed8959b8cfbe7a299e33a20",
   "sites": [
     {
       "key": "yfsp",
@@ -7,6 +7,7 @@
       "type": 3,
       "searchable": 1,
       "changeable": 1,
+      "quickSearch":0,
       "style": {
         "type": "rect",
         "ratio": 0.75
@@ -50,6 +51,7 @@
       "type": 3,
       "searchable": 1,
       "changeable": 1,
+      "quickSearch":0,
       "style": {
         "type": "rect",
         "ratio": 0.66
@@ -97,6 +99,7 @@
       "type": 3,
       "searchable": 1,
       "changeable": 1,
+      "quickSearch":0,
       "style": {
         "type": "rect",
         "ratio": 0.71

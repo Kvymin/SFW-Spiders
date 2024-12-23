@@ -5,8 +5,8 @@
 // @description  Hi视频 GMSpider
 // @author       Luomo
 // @match        https://www.upfuhn.com/*
-// @require      https://cdn.jsdelivr.net/gh/CatVodSpider-GM/Spiders-Lib@main/lib/browser-extension-url-match-1.2.0.min.js
-// @require      https://scriptcat.org/lib/637/1.4.3/ajaxHooker.js
+// @require       https://cdn.jsdelivr.net/gh/CatVodSpider-GM/Spiders-Lib@main/lib/browser-extension-url-match-1.2.0.min.js
+// @require      https://cdn.jsdelivr.net/gh/CatVodSpider-GM/SFW-Spiders@main/Spiders-Lib/ajaxHooker-1.4.3.js
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        unsafeWindow
@@ -157,19 +157,21 @@ console.log(JSON.stringify(GM_info));
                             vod_actor: formatData[data.main_actor],
                             type_name: formatData[data.tag],
                             vod_play_data: [{
-                                from: "Hi视频", url: playUrl
+                                from: "Hi视频",
+                                media: playUrl
                             }]
                         };
                     }
                     if (typeof (data?.series_num) === "number") {
                         playUrl.push({
                             name: formatData[data.series_num],
-                            value: {
-                                type: "finalUrl", data: {
-                                    header: {
-                                        "User-Agent": window.navigator.userAgent, "Referer": window.location.href
-                                    }, url: formatData[data.video_url]
-                                }
+                            type: "finalUrl",
+                            ext: {
+                                header: {
+                                    "User-Agent": window.navigator.userAgent,
+                                    "Referer": window.location.href
+                                },
+                                url: formatData[data.video_url]
                             }
                         })
                     }

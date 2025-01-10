@@ -1,5 +1,5 @@
 {
-  "spider": "./Spiders-Lib/GM.jar;md5;7f38c6778ed8959b8cfbe7a299e33a20",
+  "spider": "./Spiders-Lib/GM.jar;md5;3e59c9c3c50ea1d4609cec9dbee730c3",
   "sites": [
     {
       "key": "yfsp",
@@ -122,7 +122,7 @@
             "loadUrl": "https://www.upfuhn.com/column/${tid}.html"
           },
           "detailContent": {
-            "loadUrl": "https://www.upfuhn.com/play/${id}.html"
+            "loadUrl": "https://www.upfuhn.com/play/${id}-1-0.html"
           },
           "searchContent": {
             "loadUrl": "https://www.upfuhn.com/search/${key}.html"

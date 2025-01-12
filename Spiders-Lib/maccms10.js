@@ -12,6 +12,9 @@ var MacCmsGMSpider = function (options) {
     const categoryFilterCachePrefix = "category_";
 
     function getVodList() {
+        if (options?.getVodList) {
+            return options.getVodList();
+        }
         let vodList = [];
         $("a.module-item").each(function () {
             vodList.push({
@@ -49,6 +52,46 @@ var MacCmsGMSpider = function (options) {
         return url;
     }
 
+    function getPageCount(currentPage) {
+        if (options?.pageCountStyle) {
+            return $(options?.pageCountStyle).length > 0 ? currentPage + 1 : currentPage;
+        } else {
+            return $("#page").find(".page-link:last").attr("href")?.split(/[/.]/).at(2).split("-").at(8) || 1;
+        }
+    }
+
+    function cacheCategoryFilter(tid) {
+        let filters;
+        if (options?.getCategoryFilter) {
+            filters = options.getCategoryFilter();
+        } else {
+            filters = getCategoryFilter();
+        }
+        console.log(filters);
+        localStorage.setItem(categoryFilterCachePrefix + tid, JSON.stringify(filters));
+    }
+
+    function getCategoryFilter() {
+        const filters = [];
+        $(".module-class-item").each(function () {
+            const filter = {
+                key: "",
+                name: $(this).find(".module-item-title").text().trim(),
+                value: []
+            }
+            $(this).find(".module-item-box a").each(function () {
+                const params = $(this).attr("href").split(/[/.]/).at(2).split("-").slice(1);
+                filter.key = "index" + params.findIndex((element) => element.length > 0)
+                filter.value.push({
+                    n: $(this).text().trim(),
+                    v: params.find((element) => element.length > 0) || ""
+                })
+            })
+            filters.push(filter);
+        })
+        return filters;
+    }
+
     return {
         homeContent: function (filter) {
             const option = options.homeContent;
@@ -58,7 +101,7 @@ var MacCmsGMSpider = function (options) {
                 list: []
             }, option?.defaultResult || {});
             $(option.category.select).slice(...option.category.slice).each(function () {
-                let categoryHref = $(this).find(".links").attr("href");
+                let categoryHref = $(this).find("a").attr("href");
                 if (categoryHref.startsWith("http")) {
                     if (categoryHref.startsWith(window.location.origin)) {
                         categoryHref = categoryHref.substring(window.location.origin.length);
@@ -69,7 +112,7 @@ var MacCmsGMSpider = function (options) {
                 const categoryId = categoryHref.split(/[/.]/).at(2);
                 result.class.push({
                     type_id: categoryId,
-                    type_name: $(this).find(".links").attr("title")
+                    type_name: $(this).find("a").text().trim()
                 });
             })
             result.class.forEach(function (item) {
@@ -84,30 +127,16 @@ var MacCmsGMSpider = function (options) {
         categoryContent: function (tid, pg, filter, extend) {
             let result = {
                 list: [],
-                pagecount: $("#page").find(".page-link:last").attr("href")?.split(/[/.]/).at(2).split("-").at(8) || 1
+                pagecount: getPageCount(pg)
             };
-            const filters = [];
-            $(".module-class-item ").each(function () {
-                const filter = {
-                    key: "",
-                    name: $(this).find(".module-item-title").text().trim(),
-                    value: []
-                }
-                $(this).find(".module-item-box a").each(function () {
-                    const params = $(this).attr("href").split(/[/.]/).at(2).split("-").slice(1);
-                    filter.key = "index" + params.findIndex((element) => element.length > 0)
-                    filter.value.push({
-                        n: $(this).text().trim(),
-                        v: params.find((element) => element.length > 0) || ""
-                    })
-                })
-                filters.push(filter);
-            })
-            localStorage.setItem(categoryFilterCachePrefix + tid, JSON.stringify(filters));
+            cacheCategoryFilter(tid);
             result.list = getVodList();
             return result;
         },
         detailContent: function (ids) {
+            if(options?.detailContent.customFunction) {
+                return options.detailContent.customFunction(ids);
+            }
             let items = {};
             $(".module-info-item").each(function () {
                 items[$(this).find(".module-info-item-title").text().trim().replace("：", "")] = $(this).find(".module-info-item-content").text().trim();
@@ -144,7 +173,7 @@ var MacCmsGMSpider = function (options) {
             };
         },
         playerContent: function (flag, id, vipFlags) {
-            if (options?.playerContent.OkPlayer) {
+            if (options?.playerContent?.OkPlayer) {
                 if ($("#playleft iframe").contents()[0].readyState === 'complete') {
                     $("#playleft iframe").contents().find("#start").click();
                 } else {
@@ -162,7 +191,7 @@ var MacCmsGMSpider = function (options) {
         searchContent: function (key, quick, pg) {
             const result = {
                 list: [],
-                pagecount: $("#page").find(".page-link:last").attr("href")?.split(/[/.]/).at(2).split("-").at(10) || 1
+                pagecount: getPageCount(pg)
             };
             result.list = getSearchVodList();
             return result;

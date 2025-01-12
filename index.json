@@ -196,7 +196,7 @@
           ]
         },
         "playUrlMatch": [
-           "*://*/*.m3u8*"
+          "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {
@@ -239,8 +239,7 @@
           ]
         },
         "playUrlMatch": [
-          "https://api.huohua.live/file.php?*",
-          "https://*/*.m3u8*"
+          "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {
@@ -283,8 +282,7 @@
           ]
         },
         "playUrlMatch": [
-          "https://api.huohua.live/file.php?*",
-          "https://*/*.m3u8*"
+          "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {
@@ -327,8 +325,7 @@
           ]
         },
         "playUrlMatch": [
-          "https://api.huohua.live/file.php?*",
-          "https://*/*.m3u8*"
+          "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {
@@ -371,8 +368,7 @@
           ]
         },
         "playUrlMatch": [
-          "https://api.huohua.live/file.php?*",
-          "https://*/*.m3u8*"
+          "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {
@@ -415,8 +411,7 @@
           ]
         },
         "playUrlMatch": [
-          "https://api.huohua.live/file.php?*",
-          "https://*/*.m3u8*"
+          "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {
@@ -459,8 +454,7 @@
           ]
         },
         "playUrlMatch": [
-          "https://api.huohua.live/file.php?*",
-          "https://*/*.m3u8*"
+          "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {
@@ -503,8 +497,7 @@
           ]
         },
         "playUrlMatch": [
-          "https://api.huohua.live/file.php?*",
-          "https://*/*.m3u8*"
+          "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {
@@ -521,6 +514,93 @@
           },
           "searchContent": {
             "loadUrl": "https://www.yirenmeng.com/vodsearch/${key}----------${pg:-1}---.html"
+          }
+        }
+      }
+    },
+    {
+      "key": "zxzjhd",
+      "name": "在线之家",
+      "type": 3,
+      "searchable": 1,
+      "changeable": 1,
+      "quickSearch": 0,
+      "style": {
+        "type": "rect",
+        "ratio": 0.71
+      },
+      "api": "csp_GM",
+      "ext": {
+        "userScript": "./userScripts/zxzjhd.user.js",
+        "debug": false,
+        "webViewSettings": {
+          "blockNetworkImage": true,
+          "blockList": [
+            "https://hm.baidu.com/*",
+            "https://*.51.la/*"
+          ]
+        },
+        "playUrlMatch": [
+          "*://*/*.mp4*"
+        ],
+        "spider": {
+          "homeContent": {
+            "loadUrl": "https://www.zxzjhd.com/"
+          },
+          "categoryContent": {
+            "loadUrl": "https://www.zxzjhd.com/vodshow/${tid}-${index0:-}-${index1:-}-${index2:-}-${index3:-}-${index4:-}-${index5:-}-${index6:-}-${pg:-1}-${index8:-}-${index9:-}-${index10:-}.html"
+          },
+          "detailContent": {
+            "loadUrl": "https://www.zxzjhd.com${id}"
+          },
+          "playerContent": {
+            "loadUrl": "https://www.zxzjhd.com${playUrl}"
+          },
+          "searchContent": {
+            "loadUrl": "https://www.zxzjhd.com/vodsearch/${key}----------${pg:-1}---.html"
+          }
+        }
+      }
+    },
+    {
+      "key": "kkys",
+      "name": "可可影视",
+      "type": 3,
+      "searchable": 0,
+      "changeable": 1,
+      "quickSearch": 0,
+      "style": {
+        "type": "rect",
+        "ratio": 0.71
+      },
+      "api": "csp_GM",
+      "ext": {
+        "userScript": "./userScripts/kkys.user.js",
+        "debug": true,
+        "webViewSettings": {
+          "blockNetworkImage": true,
+          "blockList": [
+            "https://hm.baidu.com"
+          ]
+        },
+        "playUrlMatch": [
+          "https://*/*.m3u8*"
+        ],
+        "spider": {
+          "homeContent": {
+            "loadUrl": "https://www.kkys01.com/"
+          },
+          "categoryContent": {
+            "loadUrl": "https://www.kkys01.com/show/${tid}-${index0:-}-${index1:-}-${index2:-}-${index3:-}-${index4:-}-${index5:-}-${index6:-}-${pg:-1}-${index8:-}-${index9:-}-${index10:-}.html"
+          },
+          "detailContent": {
+            "loadUrl": "https://www.kkys01.com${id}"
+          },
+          "playerContent": {
+            "loadUrl": "https://www.kkys01.com${playUrl}"
+          },
+          "searchContent": {
+            "loadUrl": "https://www.kkys01.com/search?k=${key}&page=${pg:-1}"
           }
         }
       }

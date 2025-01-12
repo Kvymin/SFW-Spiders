@@ -153,8 +153,7 @@
           ]
         },
         "playUrlMatch": [
-          "https://api.huohua.live/file.php?*",
-          "https://*/*.m3u8*"
+          "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {
@@ -197,8 +196,7 @@
           ]
         },
         "playUrlMatch": [
-          "https://api.huohua.live/file.php?*",
-          "https://*/*.m3u8*"
+           "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {

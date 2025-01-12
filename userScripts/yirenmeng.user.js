@@ -23,7 +23,7 @@ console.log(JSON.stringify(GM_info));
     Object.freeze(GMSpiderArgs);
     const GmSpider = MacCmsGMSpider({
         configPicUserAgent: false,
-        playerContent: {
+        homeContent: {
             category: {
                 select: ".navbar-item",
                 slice: [1, 8]

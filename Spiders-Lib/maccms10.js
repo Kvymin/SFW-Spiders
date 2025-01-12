@@ -51,7 +51,7 @@ var MacCmsGMSpider = function (options) {
 
     return {
         homeContent: function (filter) {
-            const option = options.playerContent;
+            const option = options.homeContent;
             let result = Object.assign({
                 class: [],
                 filters: {},
@@ -144,6 +144,17 @@ var MacCmsGMSpider = function (options) {
             };
         },
         playerContent: function (flag, id, vipFlags) {
+            if (options?.playerContent.OkPlayer) {
+                if ($("#playleft iframe").contents()[0].readyState === 'complete') {
+                    $("#playleft iframe").contents().find("#start").click();
+                } else {
+                    $('#playleft iframe').on("load", function () {
+                        $("#playleft iframe").contents().ready(function () {
+                            $("#playleft iframe").contents().find("#start").click();
+                        })
+                    });
+                }
+            }
             return {
                 type: "match"
             };

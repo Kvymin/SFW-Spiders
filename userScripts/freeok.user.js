@@ -17,17 +17,20 @@ console.log(JSON.stringify(GM_info));
         GMSpiderArgs.fName = args.shift();
         GMSpiderArgs.fArgs = args;
     } else {
-        GMSpiderArgs.fName = "homeContent";
+        GMSpiderArgs.fName = "playerContent";
         GMSpiderArgs.fArgs = [true];
     }
     Object.freeze(GMSpiderArgs);
     const GmSpider = MacCmsGMSpider({
         configPicUserAgent: false,
-        playerContent: {
+        homeContent: {
             category: {
                 select: ".navbar-item",
                 slice: [1, 5]
             }
+        },
+        playerContent: {
+            OkPlayer: true
         }
     });
     $(document).ready(function () {

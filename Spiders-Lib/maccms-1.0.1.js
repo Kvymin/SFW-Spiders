@@ -134,7 +134,7 @@ var MacCmsGMSpider = function (options) {
             return result;
         },
         detailContent: function (ids) {
-            if(options?.detailContent.customFunction) {
+            if(options?.detailContent?.customFunction) {
                 return options.detailContent.customFunction(ids);
             }
             let items = {};

@@ -22,20 +22,15 @@ console.log(JSON.stringify(GM_info));
     }
     Object.freeze(GMSpiderArgs);
     const GmSpider = MacCmsGMSpider({
+        configPicUserAgent: false,
+        pageCountStyle: ".page-item-next",
         homeContent: {
             category: {
-                select: ".navbar-item",
+                select: ".menu-item",
                 slice: [1, 6]
-            },
-            defaultResult: {
-                class: [{
-                    type_id: "6",
-                    type_name: "短剧"
-                }]
             }
         }
-    })
-
+    });
     $(document).ready(function () {
         const result = GmSpider[GMSpiderArgs.fName](...GMSpiderArgs.fArgs);
         console.log(result);

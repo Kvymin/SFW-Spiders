@@ -8,6 +8,21 @@
 //         }
 //     }
 // }
+var MacCmsGMSpiderTool = {
+    formatImgUrl: function (url, configPicUserAgent, customBaseUrl) {
+        if (!url.startsWith("http")) {
+            if (customBaseUrl) {
+                url = customBaseUrl + url;
+            } else {
+                url = window.location.origin + url;
+            }
+        }
+        if (configPicUserAgent) {
+            url = url + "@User-Agent=" + window.navigator.userAgent;
+        }
+        return url;
+    }
+}
 var MacCmsGMSpider = function (options) {
     const categoryFilterCachePrefix = "category_";
 
@@ -20,7 +35,7 @@ var MacCmsGMSpider = function (options) {
             vodList.push({
                 vod_id: $(this).attr("href"),
                 vod_name: $(this).find(".module-poster-item-title").text().trim(),
-                vod_pic: formatImgUrl($(this).find(".module-item-pic img").data("original")),
+                vod_pic: MacCmsGMSpiderTool.formatImgUrl($(this).find(".module-item-pic img").data("original"), options?.configPicUserAgent),
                 vod_remarks: $(this).find(".module-item-douban").text().trim(),
                 vod_year: $(this).find(".module-item-note").text().trim()
             })
@@ -34,22 +49,12 @@ var MacCmsGMSpider = function (options) {
             vodList.push({
                 vod_id: $(this).find(".module-card-item-poster").attr("href"),
                 vod_name: $(this).find(".module-card-item-title").text().trim(),
-                vod_pic: formatImgUrl($(this).find(".module-item-pic img").data("original")),
+                vod_pic: MacCmsGMSpiderTool.formatImgUrl($(this).find(".module-item-pic img").data("original"), options?.configPicUserAgent),
                 vod_remarks: $(this).find(".module-item-douban").text().trim(),
                 vod_year: $(this).find(".module-item-note").text().trim()
             })
         });
         return vodList;
-    }
-
-    function formatImgUrl(url) {
-        if (!url.startsWith("http")) {
-            url = window.location.origin + url;
-        }
-        if (options?.configPicUserAgent) {
-            url = url + "@User-Agent=" + window.navigator.userAgent;
-        }
-        return url;
     }
 
     function getPageCount(currentPage) {
@@ -134,7 +139,7 @@ var MacCmsGMSpider = function (options) {
             return result;
         },
         detailContent: function (ids) {
-            if(options?.detailContent?.customFunction) {
+            if (options?.detailContent?.customFunction) {
                 return options.detailContent.customFunction(ids);
             }
             let items = {};
@@ -164,7 +169,7 @@ var MacCmsGMSpider = function (options) {
             return vod = {
                 vod_id: ids[0],
                 vod_name: $(".module-info-heading h1").text().trim(),
-                vod_pic: formatImgUrl($(".module-info-poster .module-item-pic img").data("original")),
+                vod_pic: MacCmsGMSpiderTool.formatImgUrl($(".module-info-poster .module-item-pic img").data("original"),options?.configPicUserAgent),
                 vod_remarks: items?.["更新"] || "",
                 vod_director: items?.["导演"] || "",
                 vod_actor: items?.["主演"] || "",

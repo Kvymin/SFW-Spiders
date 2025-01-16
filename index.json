@@ -175,6 +175,51 @@
       }
     },
     {
+      "key": "ppxys",
+      "name": "皮皮虾影视  | 自营",
+      "type": 3,
+      "searchable": 1,
+      "changeable": 1,
+      "quickSearch": 0,
+      "style": {
+        "type": "rect",
+        "ratio": 0.71
+      },
+      "api": "csp_GM",
+      "ext": {
+        "userScript": "./userScripts/ppxys.user.js",
+        "debug": false,
+        "webViewSettings": {
+          "blockNetworkImage": true,
+          "blockList": [
+            "https://hm.baidu.com/*",
+            "*://*.51.la/*",
+            "*://*.ctyunxs.cn/*"
+          ]
+        },
+        "playUrlMatch": [
+          "*://*/*.mp4*"
+        ],
+        "spider": {
+          "homeContent": {
+            "loadUrl": "http://www.ppxys.vip/"
+          },
+          "categoryContent": {
+            "loadUrl": "http://www.ppxys.vip/s/${tid}${index0:-}${index1:-}${index2:-}${index3:-}${index4:-}${index5:-}.html"
+          },
+          "detailContent": {
+            "loadUrl": "http://www.ppxys.vip${id}"
+          },
+          "playerContent": {
+            "loadUrl": "http://www.ppxys.vip${playUrl}"
+          },
+          "searchContent": {
+            "loadUrl": "http://www.ppxys.vip/vodsearch/${key}----------${pg:-1}---.html"
+          }
+        }
+      }
+    },
+    {
       "key": "yfsp",
       "name": "爱壹帆  | 自营🚧",
       "type": 3,

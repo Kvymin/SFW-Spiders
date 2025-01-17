@@ -72,7 +72,6 @@ var MacCmsGMSpider = function (options) {
         } else {
             filters = getCategoryFilter();
         }
-        console.log(filters);
         localStorage.setItem(categoryFilterCachePrefix + tid, JSON.stringify(filters));
     }
 

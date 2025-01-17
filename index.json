@@ -160,7 +160,7 @@
             "loadUrl": "https://www.kkys01.com/"
           },
           "categoryContent": {
-            "loadUrl": "https://www.kkys01.com/show/${tid}-${index0:-}-${index1:-}-${index2:-}-${index3:-}-${index4:-}-${index5:-}-${index6:-}-${pg:-1}-${index8:-}-${index9:-}-${index10:-}.html"
+            "loadUrl": "https://www.kkys01.com/show/${tid}-${index0:-}-${index1:-}-${index2:-}-${index3:-}-${index4:-3}-${pg:-1}.html"
           },
           "detailContent": {
             "loadUrl": "https://www.kkys01.com${id}"
@@ -205,7 +205,7 @@
             "loadUrl": "http://www.ppxys.vip/"
           },
           "categoryContent": {
-            "loadUrl": "http://www.ppxys.vip/s/${tid}${index0:-}${index1:-}${index2:-}${index3:-}${index4:-}${index5:-}.html"
+            "loadUrl": "http://www.ppxys.vip/s/${tid}${index0:-}${index1:-}${index2:-}${index3:-}${index4:-}${index5:-}/page/${pg:-1}.html"
           },
           "detailContent": {
             "loadUrl": "http://www.ppxys.vip${id}"
@@ -214,7 +214,7 @@
             "loadUrl": "http://www.ppxys.vip${playUrl}"
           },
           "searchContent": {
-            "loadUrl": "http://www.ppxys.vip/vodsearch/${key}----------${pg:-1}---.html"
+            "loadUrl": "http://www.ppxys.vip/search?k=${key}&page=${pg:-1}"
           }
         }
       }
@@ -302,7 +302,7 @@
             "loadUrl": "https://bilfun.cc${playUrl}"
           },
           "searchContent": {
-            "loadUrl": "https://bilfun.cc${playUrl}"
+            "loadUrl": "https://bilfun.cc/bilfunsearch/${key}----------${pg:-1}---.html"
           }
         }
       }

@@ -18,8 +18,8 @@ console.log(JSON.stringify(GM_info));
         GMSpiderArgs.fName = args.shift();
         GMSpiderArgs.fArgs = args;
     } else {
-        GMSpiderArgs.fName = "categoryContent";
-        GMSpiderArgs.fArgs = ["小巷人家", false, 1];
+        GMSpiderArgs.fName = "searchContent";
+        GMSpiderArgs.fArgs = [true];
     }
     Object.freeze(GMSpiderArgs);
     let hookConfigs = {
@@ -31,9 +31,9 @@ console.log(JSON.stringify(GM_info));
             dataKey: "VodList",
             matcher: matchPattern("https://*/libs/VodList.api.php?*").assertValid(),
             onRequestHook: function (config, handler) {
-                let url = new URL(config.url);
+                let url = new URL(config.url, window.location.origin);
                 url.searchParams.set('page', GMSpiderArgs.fArgs[1]);
-                config.url = url.toString();
+                config.url = url.pathname + url.search;
             }
         }],
         "detailContent": [{
@@ -44,13 +44,13 @@ console.log(JSON.stringify(GM_info));
             dataKey: "VodInfo",
             matcher: matchPattern("https://*/libs/VodInfo.api.php?*").assertValid(),
             onResponseHook: function (response, handler) {
+                console.log("playerContent", response);
                 let anchor = window.location.hash.split("#").at(1);
                 let vodInfo = JSON.parse(response.response)?.data;
                 vodInfo.playinfo.forEach((playinfo) => {
                     playinfo.player.forEach((player, index) => {
                         if (player.url === anchor) {
                             localStorage.setItem("history", JSON.stringify({
-                                exp: new Date().getTime(),
                                 val: [{
                                     "id": vodInfo.id,
                                     "type": vodInfo.type,
@@ -61,21 +61,18 @@ console.log(JSON.stringify(GM_info));
                                     "ensite": playinfo.ensite,
                                     "cnsite": playinfo.cnsite,
                                     "num": index
-                                }]
+                                }],
+                                exp: new Date().getTime() + 60 * 1000,
                             }));
                         }
                     })
                 });
+                console.log("history", localStorage.getItem("history"));
             }
         }],
         "searchContent": [{
-            dataKey: "titlegetdata",
-            matcher: matchPattern("https://*.yfsp.tv/api/list/gettitlegetdata?*").assertValid()
-        }, {
-            matcher: matchPattern("https://*.yfsp.tv/api/home/gethotsearch?*").assertValid(),
-            onResponseHook: function (response, handler) {
-                document.querySelector(".search-log span").dispatchEvent(new Event("click"));
-            }
+            dataKey: "VodList",
+            matcher: matchPattern("https://*/libs/VodList.api.php?*").assertValid()
         }],
     };
     const GmSpider = (function () {
@@ -131,7 +128,7 @@ console.log(JSON.stringify(GM_info));
                             type: "webview",
                             ext: {
                                 replace: {
-                                    url: vodInfo.id,
+                                    url: ids[0],
                                     anchor: player.url
                                 }
                             }
@@ -164,18 +161,30 @@ console.log(JSON.stringify(GM_info));
                     list: [],
                     pagecount: 1
                 };
-                if (pg == 1) {
-                    hookResult.titlegetdata.data.list.forEach((media) => {
+                let _gotData = function (src) {
+                    console.log("_gotSrc hook failed");
+                };
+                const targetNode = $("#leo-load-list-1")[0];
+                const config = {childList: true, subtree: true};
+                const observer = new MutationObserver((mutationsList) => {
+                    mutationsList.forEach((mutation) => {
+                        _gotData();
+                    });
+                });
+                observer.observe(targetNode, {childList: true, subtree: true});
+                return new Promise(function (resolve) {
+                    _gotData = resolve;
+                }).then(function () {
+                    let $ = unsafeWindow.$;
+                    $(".leo-list-item-s").each(function () {
                         result.list.push({
-                            vod_id: media.mediaKey,
-                            vod_name: media.title,
-                            vod_pic: media.coverImgUrl,
-                            vod_remarks: media.updateStatus,
-                            vod_year: media.regional
-                        })
+                            vod_id: $(this).find(".leo-list-item-title a").attr("href"),
+                            vod_name:$(this).find(".leo-list-item-title a").attr("title"),
+                            vod_pic: $(this).find(".leo-list-item-pic img").data("original")
+                        });
                     })
-                }
-                return result;
+                    return result;
+                });
             }
         };
     })();
@@ -184,8 +193,12 @@ console.log(JSON.stringify(GM_info));
     let hookResult = {};
     const {unProxy, originXhr} = proxy({
         onRequest: (config, handler) => {
+            let requestUrl = config.url;
+            if (!requestUrl.startsWith("http")) {
+                requestUrl = window.location.origin + requestUrl;
+            }
             hookConfigs[GMSpiderArgs.fName].forEach((hookConfig) => {
-                if (typeof hookConfig.onRequestHook === "function" && hookConfig.matcher.match(config.url)) {
+                if (typeof hookConfig.onRequestHook === "function" && hookConfig.matcher.match(requestUrl)) {
                     hookConfig.onRequestHook(config, handler);
                 }
             });
@@ -224,11 +237,16 @@ console.log(JSON.stringify(GM_info));
                 });
                 if (dataTodoCount === dataReadyCount) {
                     spiderExecuted = true;
-                    const result = GmSpider[GMSpiderArgs.fName](...GMSpiderArgs.fArgs);
-                    console.log(result);
-                    if (typeof GmSpiderInject !== 'undefined' && spiderExecuted) {
-                        GmSpiderInject.SetSpiderResult(JSON.stringify(result));
+
+                    async function asyncRun() {
+                        const result = await GmSpider[GMSpiderArgs.fName](...GMSpiderArgs.fArgs);
+                        console.log(result);
+                        if (typeof GmSpiderInject !== 'undefined' && spiderExecuted) {
+                            GmSpiderInject.SetSpiderResult(JSON.stringify(result));
+                        }
                     }
+
+                    asyncRun();
                 }
             }
             handler.next(response);

@@ -1,5 +1,5 @@
 {
-  "spider": "./Spiders-Lib/GM.jar;md5;",
+  "spider": "./Spiders-Lib/GM.jar;md5;bd931ad8ae1df9156c8856f29f138ffd",
   "sites": [
     {
       "key": "hitv",
@@ -52,7 +52,7 @@
       "api": "csp_GM",
       "ext": {
         "userScript": "./userScripts/mqtv.user.js",
-        "debug": true,
+        "debug": false,
         "webViewSettings": {
           "blockNetworkImage": true,
           "blockList": [
@@ -61,7 +61,9 @@
           ]
         },
         "playUrlMatch": [
-          "*://*/*.mp4*"
+          "https://*/obj/tos-*",
+          "*://*/*.mp4*",
+          "*://*/*.m3u8*"
         ],
         "spider": {
           "homeContent": {
@@ -71,10 +73,10 @@
             "loadUrl": "https://www.mqtv.cc/type/${tid}"
           },
           "detailContent": {
-            "loadUrl": "https://www.mqtv.cc{id}"
+            "loadUrl": "https://www.mqtv.cc${id}"
           },
           "playerContent": {
-            "loadUrl": "https://www.mqtv.cc${url}#{anchor}"
+            "loadUrl": "https://www.mqtv.cc${url}#${anchor}"
           },
           "searchContent": {
             "loadUrl": "https://www.mqtv.cc/search/${key}"

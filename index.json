@@ -1,5 +1,5 @@
 {
-  "spider": "./Spiders-Lib/GM.jar;md5;3e59c9c3c50ea1d4609cec9dbee730c3",
+  "spider": "./Spiders-Lib/GM.jar;md5;",
   "sites": [
     {
       "key": "hitv",
@@ -34,6 +34,50 @@
           },
           "searchContent": {
             "loadUrl": "https://www.upfuhn.com/search/${key}.html"
+          }
+        }
+      }
+    },
+    {
+      "key": "mqtv",
+      "name": "麻雀视频 | 自营",
+      "type": 3,
+      "searchable": 1,
+      "changeable": 1,
+      "quickSearch": 0,
+      "style": {
+        "type": "rect",
+        "ratio": 0.71
+      },
+      "api": "csp_GM",
+      "ext": {
+        "userScript": "./userScripts/mqtv.user.js",
+        "debug": true,
+        "webViewSettings": {
+          "blockNetworkImage": true,
+          "blockList": [
+            "https://hm.baidu.com/*",
+            "https://*.n3f2.cn/*"
+          ]
+        },
+        "playUrlMatch": [
+          "*://*/*.mp4*"
+        ],
+        "spider": {
+          "homeContent": {
+            "loadUrl": "https://www.mqtv.cc/"
+          },
+          "categoryContent": {
+            "loadUrl": "https://www.mqtv.cc/type/${tid}"
+          },
+          "detailContent": {
+            "loadUrl": "https://www.mqtv.cc{id}"
+          },
+          "playerContent": {
+            "loadUrl": "https://www.mqtv.cc${url}#{anchor}"
+          },
+          "searchContent": {
+            "loadUrl": "https://www.mqtv.cc/search/${key}"
           }
         }
       }
@@ -88,7 +132,7 @@
     },
     {
       "key": "zxzjhd",
-      "name": "在线之家  | 自营",
+      "name": "在线之家 | 自营",
       "type": 3,
       "searchable": 1,
       "changeable": 1,
@@ -132,7 +176,7 @@
     },
     {
       "key": "kkys",
-      "name": "可可影视  | 聚合",
+      "name": "可可影视 | 聚合",
       "type": 3,
       "searchable": 0,
       "changeable": 1,
@@ -176,7 +220,7 @@
     },
     {
       "key": "ppxys",
-      "name": "皮皮虾影视  | 自营",
+      "name": "皮皮虾影视 | 自营",
       "type": 3,
       "searchable": 1,
       "changeable": 1,
@@ -221,7 +265,7 @@
     },
     {
       "key": "yfsp",
-      "name": "爱壹帆  | 自营🚧",
+      "name": "爱壹帆 | 自营🚧",
       "type": 3,
       "searchable": 1,
       "changeable": 1,
@@ -309,7 +353,7 @@
     },
     {
       "key": "huochetaidu",
-      "name": "火车太堵  | 聚合",
+      "name": "火车太堵 | 聚合",
       "type": 3,
       "searchable": 1,
       "changeable": 1,
@@ -352,7 +396,7 @@
     },
     {
       "key": "fantuan",
-      "name": "饭团影视  | 聚合",
+      "name": "饭团影视 | 聚合",
       "type": 3,
       "searchable": 1,
       "changeable": 1,
@@ -395,7 +439,7 @@
     },
     {
       "key": "pipiys",
-      "name": "皮皮影视  | 聚合",
+      "name": "皮皮影视 | 聚合",
       "type": 3,
       "searchable": 1,
       "changeable": 1,
@@ -438,7 +482,7 @@
     },
     {
       "key": "freeok",
-      "name": "FreeOK  | 聚合",
+      "name": "FreeOK | 聚合",
       "type": 3,
       "searchable": 1,
       "changeable": 1,
@@ -481,7 +525,7 @@
     },
     {
       "key": "ppdys",
-      "name": "皮皮蛋影视  | 聚合",
+      "name": "皮皮蛋影视 | 聚合",
       "type": 3,
       "searchable": 1,
       "changeable": 1,
@@ -524,7 +568,7 @@
     },
     {
       "key": "dandantu",
-      "name": "蛋蛋兔  | 聚合",
+      "name": "蛋蛋兔 | 聚合",
       "type": 3,
       "searchable": 1,
       "changeable": 1,
@@ -567,7 +611,7 @@
     },
     {
       "key": "juyeye",
-      "name": "剧爷爷  | 聚合",
+      "name": "剧爷爷 | 聚合",
       "type": 3,
       "searchable": 1,
       "changeable": 1,
@@ -610,7 +654,7 @@
     },
     {
       "key": "yirenmeng",
-      "name": "番茄影视  | 聚合",
+      "name": "番茄影视 | 聚合",
       "type": 3,
       "searchable": 1,
       "changeable": 1,

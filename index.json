@@ -1,5 +1,5 @@
 {
-  "spider": "https://raw.gitmirror.com/kvymin/SFW-Spiders/main/Spiders-Lib/GM.jar;md5;7dd67a73e49dbf1cd32f56e329fce7b3",
+  "spider": "https://wget.la/https://raw.githubusercontent.com/CatVodSpider-GM/SFW-Spiders/main/Spiders-Lib/GM.jar;md5;7dd67a73e49dbf1cd32f56e329fce7b3",
   "sites": [
     {
       "key": "hitv",
